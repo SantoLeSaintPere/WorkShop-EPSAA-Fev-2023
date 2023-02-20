@@ -28,8 +28,30 @@ public class EnemyPatrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        NormalPatrol();
+    }
+
+
+    void NormalPatrol()
+    {
+        agent.SetDestination(patrolPoints[patrolInt].position);
+
+        if (transform.position.x == patrolPoints[patrolInt].position.x
+            && transform.position.z == patrolPoints[patrolInt].position.z)
+        {
+            patrolInt++;
+        }
+
+        if (patrolInt == patrolPoints.Length)
+        {
+            patrolInt = 0;
+        }
+    }
+
+    void PatrolNChase()
+    {
         Collider[] playerDetect = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
-        if(playerDetect.Length > 0)
+        if (playerDetect.Length > 0)
         {
             speed = speed * 2;
             GetComponent<NavMeshAgent>().stoppingDistance = stopDistance;
@@ -52,7 +74,6 @@ public class EnemyPatrol : MonoBehaviour
             }
         }
     }
-
 
     private void OnDrawGizmosSelected()
     {

@@ -4,38 +4,51 @@ using UnityEngine;
 
 public class FovTest : MonoBehaviour
 {
+    public float viewRadius;
 
-    public float fovAngle = 90f;
-    public Transform fovPoint;
-    public float range = 8;
+    [Range(0,360)]
+    public float viewAngle;
 
-    public Transform target;
-    // Start is called before the first frame update
-    void Start()
+
+    public LayerMask targetMask, obstacleMask;
+
+
+    public List<Transform> visibleTargets = new List<Transform>();
+
+
+    private void Update()
     {
-        
+        FindVisibleTargets();
     }
-
-    // Update is called once per frame
-    void Update()
+    void FindVisibleTargets()
     {
-        Vector3 dir = target.position - transform.position;
-        float angle = Vector3.Angle(dir, fovPoint.up);
-        RaycastHit2D r;
-
-        if(Physics.Raycast(fovPoint.position, target.position - transform.position, out r, range)
+        visibleTargets.Clear();
+        Collider[] targetInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+        for(int i =0; i < targetInViewRadius.Length; i++)
         {
-            if (r.collider.CompareTag("Player"))
-            {
-                print("SEEN !");
-                Debug.DrawRay(fovPoint.position, dir, Color.red);
+            Transform target = targetInViewRadius[i].transform;
+            Vector3 dirTotarget = (target.position - transform.position).normalized;
 
-            }
-            else
+            if(Vector3.Angle(transform.forward, dirTotarget) < viewAngle /2)
             {
-                print("HIDE");
+                float distToTarget = Vector3.Distance(transform.position, target.position);
 
+                if (!Physics.Raycast(transform.position, dirTotarget, distToTarget, obstacleMask))
+                {
+                    visibleTargets.Add(target);
+                }
             }
+
+            
         }
     }
+    public Vector3 dirFromAngle(float angleInDegrees, bool angleIsGlobal)
+    {
+        if(!angleIsGlobal)
+        {
+            angleInDegrees += transform.eulerAngles.y;
+        }
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+
 }

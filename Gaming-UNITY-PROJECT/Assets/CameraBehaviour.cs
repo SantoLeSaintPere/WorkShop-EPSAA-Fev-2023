@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowPlayer : MonoBehaviour
+public class CameraBehaviour : MonoBehaviour
 {
     public Transform target;
     public Vector3 offest;
