@@ -29,6 +29,10 @@ public class EnemyPatrol : MonoBehaviour
     public LayerMask obstacleMask;
     public List<Transform> visibleTargets = new List<Transform>();
 
+    [Header("Woof")]
+    public float woofDetectionRange;
+    public GameObject decoy;
+    public LayerMask decoyLayer;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -42,12 +46,31 @@ public class EnemyPatrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        decoy = GameObject.FindGameObjectWithTag("Decoy");
+        Collider[] playerWoofDetect = Physics.OverlapSphere(transform.position, woofDetectionRange, decoyLayer);
         //NormalPatrol();
-        PatrolNChase();
+        if(playerWoofDetect.Length > 0 && decoy != null)
+        {
+            WoofChase();
+            Debug.Log("chaseDecoy");
+        }
+
+        else
+        {
+            PatrolNChase();
+
+            Debug.Log("patrol");
+        }
     }
 
+    void WoofChase()
+    {
+        agent.SetDestination(decoy.transform.position);
+        speed = runSpeed;
+    }
 
-    void NormalPatrol()
+    /*void NormalPatrol()
     {
         agent.SetDestination(patrolPoints[patrolInt].position);
 
@@ -61,7 +84,7 @@ public class EnemyPatrol : MonoBehaviour
         {
             patrolInt = 0;
         }
-    }
+    }*/
 
     void PatrolNChase()
     {
@@ -124,5 +147,12 @@ public class EnemyPatrol : MonoBehaviour
             angleInDegrees += transform.eulerAngles.y;
         }
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, woofDetectionRange);
     }
 }
