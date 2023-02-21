@@ -5,11 +5,26 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     public float speed = 2;
-
+    public float runSpeed;
+    float normalSpeed;
     // Update is called once per frame
+
+    private void Start()
+    {
+        normalSpeed = runSpeed;
+    }
     void Update()
     {
         Move();
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = runSpeed;
+        }
+
+        else
+        {
+            speed = normalSpeed;
+        }
     }
 
     void Move()
