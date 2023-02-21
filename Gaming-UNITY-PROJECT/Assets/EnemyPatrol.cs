@@ -71,12 +71,12 @@ public class EnemyPatrol : MonoBehaviour
         {
             agent.SetDestination(player.transform.position);
             speed = runSpeed;
-            img.SetActive(false);
+            img.SetActive(true);
         }
 
         else
         {
-            img.SetActive(true);
+            img.SetActive(false);
             agent.SetDestination(patrolPoints[patrolInt].position);
             speed = normalSpeed;
 

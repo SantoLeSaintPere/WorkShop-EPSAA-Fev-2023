@@ -6,17 +6,19 @@ public class PlayerMove : MonoBehaviour
 {
     public float speed = 2;
     public float runSpeed;
+
+    public float waterSpeed;
+    public float waterRunSPeed;
+
     float normalSpeed;
-    // Update is called once per frame
 
     private void Start()
     {
-        normalSpeed = runSpeed;
+        normalSpeed = speed;
     }
     void Update()
     {
-        Move();
-        if(Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = runSpeed;
         }
@@ -25,6 +27,9 @@ public class PlayerMove : MonoBehaviour
         {
             speed = normalSpeed;
         }
+
+        Move();
+        
     }
 
     void Move()
