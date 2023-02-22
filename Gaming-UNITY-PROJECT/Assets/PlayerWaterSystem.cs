@@ -4,18 +4,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerWaterSystem : MonoBehaviour
 {
     [Header("Water")]
     public Image waterBar;
-    float water;
+    public float water;
     public float maxWater;
     public float waterDown;
     public float timeWaitAfterDrink;
 
     [Header("Piss")]
     public Image pissBar;
-    float piss;
+    public float piss;
     public float maxPiss;
     public float pissUp, pissDown;
     public float timeWaitAfterPiss;
@@ -23,6 +23,8 @@ public class PlayerHealth : MonoBehaviour
     bool piGrow, waterGoes, canPiss, pissing;
 
     bool triggerWater, triggerPiss;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,8 @@ public class PlayerHealth : MonoBehaviour
         waterGoes = false;
         canPiss = false;
         piGrow = false;
+
+        water = maxWater;
     }
 
     // Update is called once per frame
@@ -39,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
 
         pissBar.fillAmount = piss / maxPiss;
 
-        if (Input.GetKeyDown(KeyCode.Space) && water <=0 && triggerWater == true)
+        if (Input.GetKeyDown(KeyCode.R) && water <=0 && triggerWater == true || Input.GetButtonDown("X") && water <= 0 && triggerWater == true)
         {
             StartCoroutine(drinkWater());
         }
@@ -47,9 +51,10 @@ public class PlayerHealth : MonoBehaviour
         if(piGrow)
         {
             PissUpBehaviour();
+            SpeedDown();
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && canPiss && triggerPiss == true)
+        if(Input.GetKeyDown(KeyCode.C) && canPiss && triggerPiss == true || Input.GetButtonDown("Y") && canPiss && triggerPiss == true)
         {
             pissing = true;
         }
@@ -62,6 +67,15 @@ public class PlayerHealth : MonoBehaviour
         if(waterGoes)
         {
             WaterDownBehaviour();
+        }
+    }
+
+    void SpeedDown()
+    {
+        GetComponent<PlayerMove>().speed -= pissUp * Time.deltaTime;
+        if(GetComponent<PlayerMove>().speed <= GetComponent<PlayerMove>().normalSpeed)
+        {
+            GetComponent<PlayerMove>().speed = GetComponent<PlayerMove>().normalSpeed;
         }
     }
 

@@ -53,14 +53,24 @@ public class EnemyPatrol : MonoBehaviour
         if(playerWoofDetect.Length > 0 && decoy != null)
         {
             WoofChase();
-            Debug.Log("chaseDecoy");
+            //Debug.Log("chaseDecoy");
         }
 
         else
         {
             PatrolNChase();
 
-            Debug.Log("patrol");
+            //Debug.Log("patrol");
+        }
+
+        if(targetAquiered == true)
+        {
+            player.GetComponent<PlayerWoof>().notDetected = false;
+        }
+
+        else
+        {
+            player.GetComponent<PlayerWoof>().notDetected = true;
         }
     }
 

@@ -8,7 +8,7 @@ public class PlayerWoof : MonoBehaviour
     public GameObject img;
     public float woofTimer;
 
-    public bool canReWoof;
+    public bool canReWoof, notDetected;
 
     public GameObject lastPosObj;
     GameObject decoy;
@@ -22,7 +22,7 @@ public class PlayerWoof : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return) && canReWoof == true)
+        if(Input.GetKeyDown(KeyCode.A) && canReWoof == true && notDetected == true || Input.GetButton("A") && canReWoof == true && notDetected == true)
         {
             StartCoroutine(Woof());
         }
@@ -43,7 +43,7 @@ public class PlayerWoof : MonoBehaviour
     {
         img.SetActive(true);
         lastPosition = transform.position;
-        Instantiate(lastPosObj, lastPosition, Quaternion.identity);
+        Instantiate(lastPosObj, lastPosition, lastPosObj.transform.rotation);
         yield return new WaitForSeconds(woofTimer);
         img.SetActive(false);
     }

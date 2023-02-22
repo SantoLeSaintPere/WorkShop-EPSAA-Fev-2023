@@ -8,6 +8,7 @@ TagManager:
   - Piss
   - Decoy
   - Enemy
+  - Door
   layers:
   - Default
   - TransparentFX
