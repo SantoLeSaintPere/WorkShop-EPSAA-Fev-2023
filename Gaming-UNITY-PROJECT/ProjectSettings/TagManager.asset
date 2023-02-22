@@ -9,6 +9,7 @@ TagManager:
   - Decoy
   - Enemy
   - Door
+  - Body
   layers:
   - Default
   - TransparentFX
