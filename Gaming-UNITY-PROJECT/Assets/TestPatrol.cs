@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyPatrol : MonoBehaviour
+public class TestPatrol : MonoBehaviour
 {
 
     Animator anim;
@@ -31,7 +31,10 @@ public class EnemyPatrol : MonoBehaviour
     public List<Transform> visibleTargets = new List<Transform>();
 
     [Header("Woof")]
+    public float timeToSurprise;
     public float woofDetectionRange;
+    public GameObject decoy;
+    public LayerMask decoyLayer;
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
@@ -46,13 +49,14 @@ public class EnemyPatrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        decoy = GameObject.FindGameObjectWithTag("Decoy");
+        Collider[] playerWoofDetect = Physics.OverlapSphere(transform.position, woofDetectionRange, decoyLayer);
         //NormalPatrol();
-        Collider[] playerWoof = Physics.OverlapSphere(transform.position, woofDetectionRange, targetMask);
-        if(playerWoof.Length > 0 && player.GetComponent<PlayerWoof>().woofing)
+        if (playerWoofDetect.Length > 0 && decoy != null)
         {
             //Debug.Log("chaseDecoy");
-
-            anim.SetTrigger("alert");
+            StartCoroutine(StartChaseDecoy());
         }
 
         else
@@ -61,23 +65,31 @@ public class EnemyPatrol : MonoBehaviour
             //Debug.Log("patrol");
         }
     }
-
-    public void stopMove()
+    IEnumerator StartChaseDecoy()
     {
+        Debug.Log("STOPPPP");
+        anim.SetBool("alert", true);
         agent.isStopped = true;
+        yield return new WaitForSeconds(timeToSurprise);
+
+        anim.SetBool("alert", false);
+        agent.isStopped = false;
+        WoofChase();
+        LookAtDecoy();
+
     }
 
-    public void goMove()
+    void WoofChase()
     {
-
-        agent.isStopped = false;
+        agent.SetDestination(decoy.transform.position);
+        speed = runSpeed;
     }
 
     void PatrolNChase()
     {
 
         FindVisibleTargets();
-        if(targetAquiered == true)
+        if (targetAquiered == true)
         {
 
             player.GetComponent<PlayerWoof>().notDetected = false;
@@ -117,6 +129,11 @@ public class EnemyPatrol : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, target, rotationSpeed);
     }
 
+    void LookAtDecoy()
+    {
+        Quaternion newTarget = Quaternion.LookRotation(decoy.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newTarget, rotationSpeed);
+    }
 
 
     void FindVisibleTargets()
@@ -143,8 +160,6 @@ public class EnemyPatrol : MonoBehaviour
 
         }
     }
-
-
     public Vector3 dirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
         if (!angleIsGlobal)

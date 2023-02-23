@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class PlayerWoof : MonoBehaviour
 {
-    public Vector3 lastPosition;
     public GameObject img;
     public float woofTimer;
 
-    public bool canReWoof, notDetected;
-
-    public GameObject lastPosObj;
-    GameObject decoy;
+    public bool notDetected, woofing;
+    bool canReWoof;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,25 +24,16 @@ public class PlayerWoof : MonoBehaviour
         {
             StartCoroutine(Woof());
         }
-
-        decoy = GameObject.FindGameObjectWithTag("Decoy");
-        if (decoy !=null)
-        {
-            canReWoof=false;
-        }
-
-        else
-        {
-            canReWoof = true;
-        }
     }
 
     IEnumerator Woof()
     {
         img.SetActive(true);
-        lastPosition = transform.position;
-        Instantiate(lastPosObj, lastPosition, lastPosObj.transform.rotation);
+        woofing = true;
+        canReWoof=false;
         yield return new WaitForSeconds(woofTimer);
         img.SetActive(false);
+        woofing=false;
+        canReWoof= true;
     }
 }
