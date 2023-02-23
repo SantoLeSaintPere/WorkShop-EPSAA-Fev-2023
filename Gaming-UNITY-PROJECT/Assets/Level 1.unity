@@ -2063,6 +2063,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3441731985697440385, guid: 7f3e12c2e810f70449aa0320bde5b119, type: 3}
+      propertyPath: woofDetectionRange
+      value: 9.95
+      objectReference: {fileID: 0}
     - target: {fileID: 3441731985697440388, guid: 7f3e12c2e810f70449aa0320bde5b119, type: 3}
       propertyPath: m_Acceleration
       value: 8
@@ -2852,6 +2856,10 @@ PrefabInstance:
     - target: {fileID: 1636720657878934782, guid: 085a3cea01bc9714585a6377ecd278d2, type: 3}
       propertyPath: m_Name
       value: PLAYER
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907174481002504492, guid: 085a3cea01bc9714585a6377ecd278d2, type: 3}
+      propertyPath: woofTimer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1907174481002504495, guid: 085a3cea01bc9714585a6377ecd278d2, type: 3}
       propertyPath: pissBar

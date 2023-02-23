@@ -46,19 +46,15 @@ public class EnemyPatrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //NormalPatrol();
         Collider[] playerWoof = Physics.OverlapSphere(transform.position, woofDetectionRange, targetMask);
         if(playerWoof.Length > 0 && player.GetComponent<PlayerWoof>().woofing)
         {
-            //Debug.Log("chaseDecoy");
-
             anim.SetTrigger("alert");
         }
 
         else
         {
             PatrolNChase();
-            //Debug.Log("patrol");
         }
     }
 
@@ -69,7 +65,7 @@ public class EnemyPatrol : MonoBehaviour
 
     public void goMove()
     {
-
+        anim.ResetTrigger("alert");
         agent.isStopped = false;
     }
 
