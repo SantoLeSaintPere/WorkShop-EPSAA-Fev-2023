@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    Animator anim;
+
+
     public float speed = 2;
     public float waterSpeedMultiplier = 3.5f;
     float runSpeed;
+    bool  isIdle;
 
     public float normalSpeed;
-        float turnSmoothVelocity;
+    float turnSmoothVelocity;
 
     public float turnSmoothTime;
 
@@ -21,6 +25,7 @@ public class PlayerMove : MonoBehaviour
         normalSpeed = speed;
         runSpeed = speed * 2;
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
     void Update()
     {
@@ -30,7 +35,7 @@ public class PlayerMove : MonoBehaviour
         MoveA();
     }
 
-    void Move()
+    /*void Move()
     {
         if (Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.UpArrow)  || Input.GetAxisRaw("Vertical") > 0)
         {
@@ -63,7 +68,7 @@ public class PlayerMove : MonoBehaviour
         {
             transform.Translate(Vector3.zero);
         }
-    }
+    }*/
 
     private void MoveA()
     {
@@ -95,11 +100,13 @@ public class PlayerMove : MonoBehaviour
         }
         Vector3 direction = new Vector3(moveX, 0, moveZ).normalized;
 
-        bool isIdle = moveX == 0 && moveZ == 0;
+         isIdle = moveX == 0 && moveZ == 0;
         if (isIdle)
         {
             rb.velocity = Vector3.zero;
-           // anim.SetBool("isMoving", false);
+            { 
+                anim.SetBool("walking", false);
+            }
         }
 
         if (direction.magnitude >= 0.1f)
@@ -110,17 +117,19 @@ public class PlayerMove : MonoBehaviour
 
            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-           // anim.SetBool("isMoving", true);
-                rb.velocity = moveDir.normalized * speed;
+                anim.SetBool("walking", true);
+            rb.velocity = moveDir.normalized * speed;
         }
     }
 
     void RunSPeed()
     {
-        if (Input.GetKey(KeyCode.Space) || Input.GetAxisRaw("RT") > 0)
+        if (Input.GetKey(KeyCode.Space) && isIdle == false || Input.GetAxisRaw("RT") > 0 && isIdle == false)
         {
 
-            if(GetComponent<PlayerWaterSystem>().water > 0 && GetComponent<PlayerWaterSystem>().piss != GetComponent<PlayerWaterSystem>().maxPiss)
+            anim.SetBool("running", true);
+
+            if (GetComponent<PlayerWaterSystem>().water > 0 && GetComponent<PlayerWaterSystem>().piss != GetComponent<PlayerWaterSystem>().maxPiss)
             {
                 speed = runSpeed * waterSpeedMultiplier;
             }
@@ -134,6 +143,7 @@ public class PlayerMove : MonoBehaviour
 
         else
         {
+            anim.SetBool("running", false);
             speed = normalSpeed;
 
             if (GetComponent<PlayerWaterSystem>().water > 0 && GetComponent<PlayerWaterSystem>().piss != GetComponent<PlayerWaterSystem>().maxPiss)
