@@ -98,7 +98,8 @@ GameObject:
   - component: {fileID: 3441731985697440391}
   - component: {fileID: 3441731985697440385}
   - component: {fileID: 3441731985697440384}
-  m_Layer: 0
+  - component: {fileID: 1764323494}
+  m_Layer: 9
   m_Name: GUARD
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -113,7 +114,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3441731985697440398}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.73, y: 0, z: -4.2}
+  m_LocalPosition: {x: -0.73, y: 1, z: -4.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -135,9 +136,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.6255226
-  m_Height: 3.355639
+  m_Height: 3.2590618
   m_Direction: 1
-  m_Center: {x: 0, y: 1.7071011, z: 0.17573166}
+  m_Center: {x: 0, y: 0.6286588, z: 0.17573166}
 --- !u!195 &3441731985697440388
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -226,6 +227,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &1764323494
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3441731985697440398}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.8950093
+  m_Height: 2.7989588
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.3331406, z: 0.39500928}
 --- !u!1 &3441731985762684971
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da7bb70a08c9055469d5b60410639503, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da7bb70a08c9055469d5b60410639503, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1012,6 +1027,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &1558917847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149328360477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e87cfa8593033448d1cdfed79651a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &641702801888885790
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
