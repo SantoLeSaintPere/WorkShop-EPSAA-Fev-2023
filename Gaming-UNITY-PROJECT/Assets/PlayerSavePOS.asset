@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b92040b4af62ab14cacda232b05e6c2d, type: 3}
   m_Name: PlayerSavePOS
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 0, z: 0}
+  Lastposition: {x: 0, y: 0, z: 0}
+  firstPos: {x: 15, y: 0, z: -25}
+  isLoad: 0

@@ -11,7 +11,7 @@ public class SavePoint : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-
+            save.isLoad = 1;
             save.Lastposition = spawnPoint.position;
         }
     }

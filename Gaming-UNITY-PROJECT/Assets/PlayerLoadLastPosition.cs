@@ -5,11 +5,18 @@ using UnityEngine;
 public class PlayerLoadLastPosition : MonoBehaviour
 {
     public SaveS save;
-    public Vector3 firstPos;
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = save.Lastposition;
+        if(save.isLoad == 1)
+        {
+            transform.position = save.Lastposition;
+        }
+
+        else
+        {
+            save.firstPos = transform.position;
+        }
     }
 
     // Update is called once per frame
