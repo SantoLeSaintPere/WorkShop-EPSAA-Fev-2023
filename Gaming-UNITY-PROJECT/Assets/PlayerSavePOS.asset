@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerSavePOS
   m_EditorClassIdentifier: 
   Lastposition: {x: 0, y: 0, z: 0}
-  firstPos: {x: 15, y: 0, z: -25}
-  isLoad: 0
+  firstPos: {x: -44.07, y: 0.11, z: -48.5}
+  isLoad: 1
