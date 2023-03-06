@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb88602cc900c405ba4705fa5155c085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MAIN MENU
+  sceneName: Chiara scene
 --- !u!1 &397497005
 GameObject:
   m_ObjectHideFlags: 0
