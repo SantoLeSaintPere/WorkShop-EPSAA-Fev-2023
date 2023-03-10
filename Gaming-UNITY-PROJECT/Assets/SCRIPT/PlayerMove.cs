@@ -124,7 +124,7 @@ public class PlayerMove : MonoBehaviour
 
     void RunSPeed()
     {
-        if (Input.GetKey(KeyCode.Space) && isIdle == false || Input.GetAxisRaw("RT") > 0 && isIdle == false)
+        if (Input.GetKey(KeyCode.LeftShift) && isIdle == false || Input.GetAxisRaw("LT") > 0 && isIdle == false)
         {
 
             anim.SetBool("running", true);

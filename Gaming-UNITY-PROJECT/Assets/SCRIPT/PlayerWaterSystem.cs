@@ -33,7 +33,6 @@ public class PlayerWaterSystem : MonoBehaviour
         waterGoes = false;
         canPiss = false;
         piGrow = false;
-
         //StartCoroutine(drinkWater());
     }
 
@@ -136,11 +135,13 @@ public class PlayerWaterSystem : MonoBehaviour
         if(other.CompareTag("Water"))
         {
             triggerWater = true;
+            other.GetComponent<activePanelWaterOPiss>().WaterPanelOn();
         }
 
         if (other.CompareTag("Piss"))
         {
             triggerPiss = true;
+            other.GetComponent<activePanelWaterOPiss>().PissPanelOn();
         }
 
 
@@ -148,7 +149,11 @@ public class PlayerWaterSystem : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        triggerPiss = false;
-        triggerWater = false;
+        if (other.CompareTag("Piss") || other.CompareTag("Water"))
+        {
+            other.GetComponent<activePanelWaterOPiss>().OffPanels();
+            triggerPiss = false;
+            triggerWater = false;
+        }
     }
 }

@@ -8,19 +8,58 @@ public class MainMenuManager : MonoBehaviour
 
     public string gameScene;
     public SaveS save;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
+    public GameObject keyboardPan, controllerPan;
     // Update is called once per frame
+
+    private void Start()
+    {
+        keyboardPan.SetActive(false);
+        controllerPan.SetActive(false);
+    }
     void Update()
     {
-        
+        if(Input.GetKey(KeyCode.X))
+        {
+            save.saving = 0;
+        }
     }
 
-    public void NewGame()
+    public void ActiveKeyPanel()
+    {
+
+        keyboardPan.SetActive(true);
+        controllerPan.SetActive(false);
+    }
+
+
+    public void ActiveCOntrollerPanel()
+    {
+        keyboardPan.SetActive(false);
+        controllerPan.SetActive(true);
+    }
+
+
+    public void Back()
+    {
+        keyboardPan.SetActive(false);
+        controllerPan.SetActive(false);
+    }
+
+    public void LaunchGame()
+    {
+        if(save.saving == 0)
+        {
+            NewGame();
+        }
+
+        if (save.saving == 1)
+        {
+            LoadGame();
+        }
+    }
+
+    void NewGame()
     {
         save.isLoad = 0;
         save.Lastposition = save.firstPos;
@@ -28,10 +67,15 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(gameScene);
     }
 
-    public void LoadGame()
+    void LoadGame()
     {
         save.isLoad = 1;
 
         SceneManager.LoadScene(gameScene);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

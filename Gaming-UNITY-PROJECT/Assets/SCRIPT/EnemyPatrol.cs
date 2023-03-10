@@ -86,7 +86,7 @@ public class EnemyPatrol : MonoBehaviour
 
         else
         {
-
+            
             player.GetComponent<PlayerWoof>().notDetected = true;
             anim.SetBool("running", false);
             img.SetActive(false);
@@ -155,5 +155,14 @@ public class EnemyPatrol : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, woofDetectionRange);
+
+
+        //POINTS LINK
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(patrolPoints[0].position, patrolPoints[1].position);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(patrolPoints[1].position, patrolPoints[2].position);
+        Gizmos.DrawLine(patrolPoints[2].position, patrolPoints[3].position);
+        Gizmos.DrawLine(patrolPoints[3].position, patrolPoints[0].position);
     }
 }

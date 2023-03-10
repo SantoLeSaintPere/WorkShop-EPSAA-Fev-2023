@@ -10,5 +10,5 @@ public class SaveS : ScriptableObject
     public Vector3 firstPos;
     // 0 false 1 true
     public int isLoad;
-   
+    public int saving;
 }
